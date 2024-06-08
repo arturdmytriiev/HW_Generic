@@ -1,11 +1,11 @@
 import java.util.Arrays;
 
 public class CustomArrayList <E> {
- private Object [] data;
+ private E [] data;
  private int size;
 
  public CustomArrayList() {
-     data = new Object[10];
+     data = (E[]) new Object[10];
      size = 0;
  }
 
@@ -13,7 +13,7 @@ public class CustomArrayList <E> {
  {
      if(size > data.length)
      {
-         Object [] newData = new Object[data.length*2];
+         E [] newData = (E[]) new Object [data.length*2];
          System.arraycopy(data,0, newData , 0, data.length);
          data = newData;
      }
@@ -65,9 +65,17 @@ public class CustomArrayList <E> {
      String [] s = new String [size];
      for(int i = 0; i < size; i++)
      {
-         s[i] = data[i].toString();
+         if(data[i] == null)
+         {
+             s[i] = "null";
+         }
+         else
+         {
+             s[i] = data[i].toString();
+         }
      }
-     return Arrays.toString(s);
+    String result = String.join(", ", s);
+    return result;
  }
 
 

@@ -71,8 +71,14 @@ public class CustomQueue<T> {
          Node<T> current = head;
          for(int i = 0; i<size; i++)
          {
-             str[i] = current.data.toString();
-             current = current.next;
+             if(current.data != null) {
+                 str[i] = current.data.toString();
+                 current = current.next;
+             }
+             else {
+                 str[i] = "null";
+                 current = current.next;
+             }
          }
          return Arrays.toString(str);
      }

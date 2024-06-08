@@ -60,7 +60,9 @@ public class Main {
         map.put("key2", "value2");
         map.put("key3", "value3");
         map.put("key1", "value4");
+        map.put(null, "value5");
         map.remove("key1");
-
+        System.out.println(map.get("key5"));
+        System.out.println("map.get(null) = " + map.get(null));
     }
 }

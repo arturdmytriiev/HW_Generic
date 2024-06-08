@@ -1,9 +1,20 @@
 public class CustomHashMap <K,V> {
     static final int DEFAULT_INITIAL_CAPACITY = 16;
     private Entry<K, V>[] table = new Entry[DEFAULT_INITIAL_CAPACITY];
+    private Entry<K, V> nullKeyEntry;
     int size = 0;
 
     public void put(K key, V value) {
+        if (key == null) {
+            if (nullKeyEntry == null) {
+                nullKeyEntry = new Entry<>(null, value);
+                size++;
+            } else {
+                nullKeyEntry.value = value;
+            }
+            return;
+        }
+
         int index = calculateIndex(key.hashCode());
         Entry<K, V> newHash = new Entry<>(key, value);
         if (table[index] == null) {
@@ -27,7 +38,19 @@ public class CustomHashMap <K,V> {
     }
 
     public V get(K key) {
+        if (key == null) {
+            if(nullKeyEntry == null) {
+                return null;
+            }
+            else {
+                return nullKeyEntry.value;
+            }
+        }
+
         int index = calculateIndex(key.hashCode());
+        if(table[index] == null) {
+            return null;
+        }
         if(table[index].key.equals(key)) {
             return table[index].value;
         }
@@ -44,7 +67,18 @@ public class CustomHashMap <K,V> {
     }
 
     public void remove(K key) {
+        if (key == null) {
+        if (nullKeyEntry != null) {
+            nullKeyEntry = null;
+            size--;
+        }
+        return;
+    }
+
         int index = calculateIndex(key.hashCode());
+        if(table[index] == null) {
+            return;
+        }
         if(table[index].key.equals(key)) {
             table[index] = table[index].next;
         }
